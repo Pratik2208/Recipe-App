@@ -17,4 +17,7 @@ export class ShoppingListComponent implements OnInit{
     throw new Error('Method not implemented.');
   }
 
+  onIngrediantAdded(ingrediant : Ingrediant){
+    this.ingrediants.push(ingrediant);
+  }
 }
