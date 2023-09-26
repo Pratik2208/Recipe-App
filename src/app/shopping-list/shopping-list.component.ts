@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Ingrediant } from '../shared/ingrediant.model';
+import { ShoppingService } from './shopping-list.service';
 
 @Component({
   selector: 'app-shopping-list',
@@ -8,16 +9,18 @@ import { Ingrediant } from '../shared/ingrediant.model';
 })
 export class ShoppingListComponent implements OnInit{
 
-  ingrediants: Ingrediant[] = [
-    new Ingrediant('apples',5),
-    new Ingrediant('tomatoes',10),
-  ];
+  ingrediants: Ingrediant[];
 
-  ngOnInit(){
-    throw new Error('Method not implemented.');
+  constructor(private slService : ShoppingService){
   }
 
-  onIngrediantAdded(ingrediant : Ingrediant){
-    this.ingrediants.push(ingrediant);
+  ngOnInit(){
+    this.ingrediants = this.slService.getIngrediants();
+    this.slService.ingrediantChanged
+    .subscribe(
+      (ingrediants : Ingrediant[]) => {
+        this.ingrediants = ingrediants;
+      }
+    )
   }
 }
